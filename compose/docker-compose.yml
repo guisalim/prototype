@@ -1,0 +1,65 @@
+version: "3.8"
+services:
+
+  mongo-db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo-db
+    volumes:
+      - ./db/:/data/db
+    networks:
+      - proxy-network
+
+  gateway:
+    build:
+      context: ../gateway
+      target: production
+    restart: always
+    env_file: .env/.docker
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../gateway:/app
+    stdin_open: true
+    tty: true
+    networks:
+      - proxy-network
+
+  server:
+    depends_on:
+      - mongo-db
+    build:
+      context: ../server
+      target: production
+    restart: always
+    env_file: .env/.docker
+    ports:
+      - "3001:3001"
+    volumes:
+      - ../server:/app
+    stdin_open: true
+    tty: true
+    links:
+      - mongo-db
+    networks:
+      - proxy-network
+
+  client:
+    depends_on:
+      - server
+    build:
+      context: ../client
+      target: production
+    restart: always
+    env_file: .env/.docker
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../client:/app
+    stdin_open: true
+    tty: true
+
+networks:
+  proxy-network:
+    name: custom_network

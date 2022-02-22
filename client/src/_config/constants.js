@@ -1,0 +1,1 @@
+export const fallbackImageSrc = "https://unity3d.com/files/images/ogimg.jpg";

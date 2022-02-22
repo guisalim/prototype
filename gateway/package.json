@@ -1,0 +1,40 @@
+{
+  "name": "salim_gateway",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "development": "nodemon -L --signal SIGTERM",
+    "lint": "eslint ./",
+    "lint:watch": "esw --quiet -w",
+    "prod": "yarn run build && node dist/index.js",
+    "start": "concurrently \"yarn run development\" \"yarn run lint:watch\"",
+    "start:dev": "env-cmd -f ../compose/.env/.dev yarn start",
+    "test": "jest --watchAll --coverage"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-watch": "^8.0.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "express-rate-limit": "^6.3.0",
+    "helmet": "^5.0.2",
+    "http-proxy-middleware": "^2.0.3",
+    "module-alias": "^2.2.2",
+    "morgan": "^1.10.0"
+  },
+  "_moduleAliases": {
+    "@root": "./src",
+    "@middlewares": "src/middlewares",
+    "@routes": "src/routes"
+  }
+}
