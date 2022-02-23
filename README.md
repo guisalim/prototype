@@ -28,6 +28,7 @@ docker-compose --profile dev up --build
 
 The Unity Application was not included on the Docker-Compose, so you'll have to run it locally.
 Make sure that you have Unity version *2020.3.6f1* installed.
+Once you open your editor with the unity project, open the **Example** scene and run it.
 
 ### Code Structure
 
