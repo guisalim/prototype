@@ -19,11 +19,11 @@ cd prototype/compose
 Since we use our `docker-compose` process, it is not required to start the project alone. Docker Compose will start it for you and you can check it on `https://localhost:8080`
 So, to run a **production** build, you just need to run: 
 ```sh
-docker-compose up --profile production up --build
+docker-compose --profile production up --build
 ```
 However, to run a **development** build, you just need to run: 
 ```sh
-docker-compose up --profile dev up --build
+docker-compose --profile dev up --build
 ```
 
 The Unity Application was not included on the Docker-Compose, so you'll have to run it locally.
