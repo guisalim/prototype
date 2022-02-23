@@ -11,7 +11,7 @@ namespace Unity.Metacast.Demo
     /// </summary>
     public class TestListings : MonoBehaviour
     {
-        private string url = "http://localhost:3000/api/games/list";
+        private string url = "http://localhost:3000/api/games/";
         [SerializeField] private TextAsset m_TestJson;
 
         /// <summary>

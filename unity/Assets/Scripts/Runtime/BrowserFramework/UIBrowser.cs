@@ -95,20 +95,19 @@ namespace UnityEngine.Replay
                                 listings = g.ToList()
                             }, i));
 
-            int height = 625;
             var postContent = Content.transform.position;
-
+            var paddingBottom = 50;
             foreach (var (category, index) in carousels)
             {
-                var posY = ((postContent.y - height) * (index - 2));
-
-                var NewCarousel = Instantiate(CustomCarousel, new Vector3(postContent.x, posY, 0), Quaternion.identity, Content.transform);
+                var NewCarousel = Instantiate(CustomCarousel, new Vector3(0, 0, 0), Quaternion.identity, Content.transform);
                 NewCarousel.name = category.name;
                 NewCarousel.transform.localScale = new Vector3(1, 1, 1);
 
                 RectTransform rt = (RectTransform)NewCarousel.transform;
                 RectTransform contentCurrentRt = (RectTransform)Content.transform;
-                Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, contentCurrentRt.rect.height + rt.rect.height);
+                Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, contentCurrentRt.rect.height + rt.rect.height + paddingBottom);
+
+                NewCarousel.transform.localPosition = new Vector3(0, 0 - ((rt.rect.height + paddingBottom) * index), 0);
 
                 var carousel = Content.transform.Find(category.name).gameObject;
                 carousel.GetComponent<UICarousel>().Init(category.name, category.listings);

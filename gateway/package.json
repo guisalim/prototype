@@ -5,12 +5,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "pre_run": "yarn install --check-files",
     "development": "nodemon -L --signal SIGTERM",
     "lint": "eslint ./",
     "lint:watch": "esw --quiet -w",
-    "prod": "yarn run build && node dist/index.js",
-    "start": "concurrently \"yarn run development\" \"yarn run lint:watch\"",
-    "start:dev": "env-cmd -f ../compose/.env/.dev yarn start",
+    "prod": "yarn pre_run && node src/index.js",
+    "start": "yarn pre_run && concurrently \"yarn run development\" \"yarn run lint:watch\"",
+    "start:dev": "env-cmd -f ../compose/.dev yarn start",
     "test": "jest --watchAll --coverage"
   },
   "devDependencies": {

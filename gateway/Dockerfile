@@ -10,6 +10,5 @@ COPY . /app
 CMD yarn start
 
 FROM base as production
-RUN yarn install
 COPY . /app
 CMD yarn run prod

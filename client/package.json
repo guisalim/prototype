@@ -21,10 +21,11 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start:dev": "env-cmd -f ../compose/.env/.dev yan start",
+    "pre_run": "yarn install --check-files",
+    "start": "yarn pre_run && react-scripts start",
+    "start:dev": "yarn pre_run && env-cmd -f ../compose/.dev yan start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "yarn pre_run && react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

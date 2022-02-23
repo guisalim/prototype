@@ -26,19 +26,21 @@ const list = async (parameters = {}) => {
     response = await game.schema
       .find({ isPremiumContent: Boolean(premium) }, default_object_fields)
       .sort({ updatedAt: 1 });
-  } catch (e) {
+  } catch (err) {
     console.error(`Error:: ${err}`);
     response = UITestJson?.listings;
   }
   return response;
 };
 
-const get = async ({ _id }) => {
+const get = async (p = {}) => {
+  console.log(p);
+  const { _id } = p;
   let data = null;
   try {
     data = await game.schema.findById(_id, default_object_fields);
   } catch (e) {
-    console.error(`Error:: ${err}`);
+    console.error(`Error:: ${e}`);
   }
   return data;
 };
@@ -47,8 +49,8 @@ const create = async (parameters) => {
   let data = {};
   try {
     data = await game.schema.create(parameters?.game);
-  } catch (err) {
-    console.error(`Error:: ${err}`);
+  } catch (e) {
+    console.error(`Error:: ${e}`);
   }
   return data;
 };
