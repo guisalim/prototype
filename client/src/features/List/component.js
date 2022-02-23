@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { fallbackImageSrc } from "_config/constants";
 import { Card, Button, Grid, IconButton, Modal, Paper } from "components";
@@ -47,6 +47,10 @@ const ListComponent = ({
   const onCloseGameModal = () => openGameModal(null);
   const onExpand = (game) => (event) => openGameModal(game);
   const onEditGame = (game) => (event) => onEdit({ gameId: game._id });
+
+  useEffect(() => {
+    setPage({ start: 0, end: pagination });
+  }, [games]);
 
   return (
     <CustomListWrapper>
