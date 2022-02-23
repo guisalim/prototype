@@ -37,6 +37,7 @@ namespace UnityEngine.Replay
             {
                 GameObject.Destroy(child.gameObject);
             }
+            Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
             StartCoroutine(CreateListings(jsonString));
         }
 
