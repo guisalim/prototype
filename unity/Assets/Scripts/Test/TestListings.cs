@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Replay;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Unity.Metacast.Demo
 {
@@ -11,8 +13,10 @@ namespace Unity.Metacast.Demo
     /// </summary>
     public class TestListings : MonoBehaviour
     {
-        private string url = "http://localhost:3000/api/games/";
+        private string url = "http://localhost:3000/api/games/?premium=";
+        private int premium = 1;
         [SerializeField] private TextAsset m_TestJson;
+        [SerializeField] private Button MyButton;
 
         /// <summary>
         ///     Start is called on the frame when a script is enabled just
@@ -20,9 +24,35 @@ namespace Unity.Metacast.Demo
         /// </summary>
         private void Start()
         {
-            //TODO Instead of a TextAsset pass JSON result from the web server.
-            // UIBrowser.instance.Init(m_TestJson.text);
-            StartCoroutine(GetRequest(url));
+            MyButton?.onClick.AddListener(() => { ToggleList(); });
+            ToggleList();
+        }
+
+        /// <summary>
+        ///     This function will be resposible for toggle between premium 
+        ///     and public content. It will be called when feature start
+        ///     allowing a setup of the button used
+        /// </summary>
+        public void ToggleList()
+        {
+            MyButton.interactable = false;
+            var colors = MyButton.colors;
+
+            switch (premium)
+            {
+                case 0:
+                    colors.normalColor = Color.blue;
+                    MyButton.gameObject.GetComponentInChildren<Text>().text = "View Public";
+                    premium = 1;
+                    break;
+                case 1:
+                    colors.normalColor = Color.red;
+                    MyButton.gameObject.GetComponentInChildren<Text>().text = "View Premium";
+                    premium = 0;
+                    break;
+            }
+            MyButton.colors = colors;
+            StartCoroutine(GetRequest(url + premium));
         }
 
         /// <summary>
@@ -54,7 +84,8 @@ namespace Unity.Metacast.Demo
                         break;
                 }
 
-                UIBrowser.instance.Init(text);
+                UIBrowser.instance.Reset(text);
+                MyButton.interactable = true;
             }
         }
     }

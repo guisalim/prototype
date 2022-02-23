@@ -16,6 +16,7 @@ namespace UnityEngine.Replay
         [SerializeField]
         public GameObject CustomCarousel;
         public GameObject Content;
+        public GameObject ButtonToggle;
 
         /// <summary>
         ///  Awake is called when the script instance is being loaded.
@@ -26,11 +27,16 @@ namespace UnityEngine.Replay
         }
 
         /// <summary>
-        /// Initialize the browser
+        ///     Reset is called when we want to RESET the list of categories
+        ///     base on the new json received.
         /// </summary>
-        /// <param name="jsonString">The JSON string to parse into listings</param>
-        public void Init(string jsonString)
+        /// <param name="jsonString">The JSON string to parse</param>
+        public void Reset(string jsonString)
         {
+            foreach (Transform child in Content.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
             StartCoroutine(CreateListings(jsonString));
         }
 
@@ -84,6 +90,11 @@ namespace UnityEngine.Replay
             SetCarousels(listings);
         }
 
+        /// <summary>
+        ///     SetCarousels will be responsible for creating all Content
+        ///     Carousels based on the listing received
+        /// </summary>
+        /// <param name="listings">a lists of games</param>
         private void SetCarousels(List<Listing> listings)
         {
             var carousels = listings
