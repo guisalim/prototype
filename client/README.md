@@ -26,7 +26,7 @@ prototype
 
 
 ### :open_file_folder: `src/` - Let's dive into React :rocket:
-datadesk.io is bult using React Redux architecture. This sections aims to describe each one of the folders and files used.
+client is bult using React Redux architecture. This sections aims to describe each one of the folders and files used.
 <br/>In order to have a better visual of the folders structure, all folders starting with underscore(`_`) are responsible for settings or state management, others starting without underscore are responsible for UI-only.
 
 | Folder/File Name     |     Type                 | Description 
